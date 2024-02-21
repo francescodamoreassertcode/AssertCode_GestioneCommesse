@@ -116,7 +116,7 @@ sap.ui.define([
 				sap.ui.getCore().this = this;
 				var oView = this.getView();
 				// create dialog lazily
-				if (!this.byId("openDialog")) {
+				if (!this.byId("InsertDataDialog")) {
 					// load asynchronous XML fragment
 					Fragment.load({
 						id: oView.getId(),
@@ -129,7 +129,7 @@ sap.ui.define([
 						oDialog.open();
 					});
 				} else {
-					this.byId("openDialog").open();
+					this.byId("InsertDataDialog").open();
 				}
 			
 
@@ -144,7 +144,7 @@ sap.ui.define([
 		},
 		
 					closeDialog: function() {
-				this.byId("openDialog").close();
+				this.byId("InsertDataDialog").close();
 			},
 
 
@@ -159,7 +159,9 @@ sap.ui.define([
 				method: "POST",
 				success: function(data) {
 
+				
 					that.getView().byId("InsertDataDialog").close();
+					that.getOwnerComponent().getModel("createDataModel").setData();
 					MessageToast.show('Operazione effettuata correttamente');
 					that.onSearch();
 
