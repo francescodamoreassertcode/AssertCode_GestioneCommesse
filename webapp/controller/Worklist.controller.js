@@ -161,7 +161,20 @@ sap.ui.define([
 
 				
 					that.getView().byId("InsertDataDialog").close();
-					that.getOwnerComponent().getModel("createDataModel").setData();
+					that.getOwnerComponent().getModel("createDataModel").setData({
+					
+					"Codcomm" : '' ,
+					"Descr" : '' ,
+					"Tpcomm" : '' ,
+					"Dinizio" : new Date(),
+					"Dfine" : new Date(),
+					"Importotot" : '0.00', 
+					"Ratevend" : '0.00' ,
+					"Cliente" : '' 
+
+					
+				});
+					
 					MessageToast.show('Operazione effettuata correttamente');
 					that.onSearch();
 
