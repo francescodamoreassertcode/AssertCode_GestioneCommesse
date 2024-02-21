@@ -1,0 +1,90 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZODATA_NEWORDINI_07_SRV" xml:lang="en" sap:schema-version="1">
+            <Annotation
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+                <EntityType Name="posizione" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="NumeroOrdine"/>
+                    </Key>
+                    <Property Name="Iva" Type="Edm.Byte" sap:unicode="false" sap:label="IVA"/>
+                    <Property Name="NumeroOrdine" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Numero ordine"/>
+                    <Property Name="Posizione" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Posizione"/>
+                    <Property Name="Totale" Type="Edm.Decimal" Precision="10" Scale="2" sap:unicode="false" sap:label="Importo"/>
+                    <Property Name="Quantita" Type="Edm.Int32" sap:unicode="false" sap:label="Quantita"/>
+                    <Property Name="PrezzoBase" Type="Edm.Decimal" Precision="10" Scale="2" sap:unicode="false" sap:label="Prezzo unitario"/>
+                    <Property Name="Materiale" Type="Edm.String" MaxLength="10" sap:unicode="false" sap:label="Materiale"/>
+                    <Property Name="ImportoImposto" Type="Edm.Decimal" Precision="10" Scale="2" sap:unicode="false" sap:label="Importo"/>
+                </EntityType>
+                <EntityType Name="evento" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="NumeroOrdine"/>
+                    </Key>
+                    <Property Name="NumeroOrdine" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Numero ordine"/>
+                    <Property Name="Data" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="data creazione"/>
+                    <Property Name="Ora" Type="Edm.String" MaxLength="6" sap:unicode="false" sap:label="Ora"/>
+                    <Property Name="Evento" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Evento"/>
+                    <Property Name="NomeUtente" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="User Name"/>
+                </EntityType>
+                <EntityType Name="ordine" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="NumeroOrdine"/>
+                    </Key>
+                    <Property Name="NumeroOrdine" Type="Edm.String" Nullable="false" MaxLength="10" sap:unicode="false" sap:label="Numero ordine"/>
+                    <Property Name="Descrizione" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Descrizione"/>
+                    <Property Name="DataCreazione" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="data creazione"/>
+                    <Property Name="UtenteCreazione" Type="Edm.String" MaxLength="12" sap:unicode="false" sap:label="User Name"/>
+                    <Property Name="DataScadenza" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Data scadenza"/>
+                    <Property Name="Importo" Type="Edm.Decimal" Precision="10" Scale="2" sap:unicode="false" sap:label="Importo"/>
+                    <Property Name="Valuta" Type="Edm.String" MaxLength="5" sap:unicode="false" sap:label="Valuta"/>
+                    <NavigationProperty Name="eventoSet" Relationship="ZODATA_NEWORDINI_07_SRV.ordine_evento" FromRole="FromRole_ordine_evento" ToRole="ToRole_ordine_evento"/>
+                    <NavigationProperty Name="posizioneSet" Relationship="ZODATA_NEWORDINI_07_SRV.ordine_posizione" FromRole="FromRole_ordine_posizione" ToRole="ToRole_ordine_posizione"/>
+                </EntityType>
+                <Association Name="ordine_evento" sap:content-version="1">
+                    <End Type="ZODATA_NEWORDINI_07_SRV.ordine" Multiplicity="1" Role="FromRole_ordine_evento"/>
+                    <End Type="ZODATA_NEWORDINI_07_SRV.evento" Multiplicity="*" Role="ToRole_ordine_evento"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_ordine_evento">
+                            <PropertyRef Name="NumeroOrdine"/>
+                        </Principal>
+                        <Dependent Role="ToRole_ordine_evento">
+                            <PropertyRef Name="NumeroOrdine"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="ordine_posizione" sap:content-version="1">
+                    <End Type="ZODATA_NEWORDINI_07_SRV.ordine" Multiplicity="1" Role="FromRole_ordine_posizione"/>
+                    <End Type="ZODATA_NEWORDINI_07_SRV.posizione" Multiplicity="*" Role="ToRole_ordine_posizione"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_ordine_posizione">
+                            <PropertyRef Name="NumeroOrdine"/>
+                        </Principal>
+                        <Dependent Role="ToRole_ordine_posizione">
+                            <PropertyRef Name="NumeroOrdine"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <EntityContainer Name="ZODATA_NEWORDINI_07_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                    <EntitySet Name="posizioneSet" EntityType="ZODATA_NEWORDINI_07_SRV.posizione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                    <EntitySet Name="eventoSet" EntityType="ZODATA_NEWORDINI_07_SRV.evento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                    <EntitySet Name="ordineSet" EntityType="ZODATA_NEWORDINI_07_SRV.ordine" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:content-version="1"/>
+                    <AssociationSet Name="ordine_posizioneSet" Association="ZODATA_NEWORDINI_07_SRV.ordine_posizione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="ordineSet" Role="FromRole_ordine_posizione"/>
+                        <End EntitySet="posizioneSet" Role="ToRole_ordine_posizione"/>
+                    </AssociationSet>
+                    <AssociationSet Name="ordine_eventoSet" Association="ZODATA_NEWORDINI_07_SRV.ordine_evento" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="ordineSet" Role="FromRole_ordine_evento"/>
+                        <End EntitySet="eventoSet" Role="ToRole_ordine_evento"/>
+                    </AssociationSet>
+                </EntityContainer>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZODATA_NEWORDINI_07_SRV/$metadata"/>
+                    <atom:link
+                        xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZODATA_NEWORDINI_07_SRV/$metadata"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>

@@ -1,0 +1,108 @@
+<mvc:View
+	controllerName="assertcode.CommesseApplication.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" />
+		</semantic:titleHeading>
+		
+
+
+		<semantic:content>
+			<Table
+				id="table"
+				width="auto"
+				items="{
+					path: 'Lista>/Dati',
+					sorter: {
+						path: 'Codcomm',
+						descending: false
+					}
+				}"
+				noDataText="{worklistView>/tableNoDataText}"
+				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+				growing="true"
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<ToolbarSpacer />
+						<SearchField
+							id="searchField"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search="onSearch"
+							width="auto">
+						</SearchField>
+					</Toolbar>
+				</headerToolbar>
+				<items>
+					<ColumnListItem counter="0" id="item1">
+						<cells>
+							<Text id="text5" maxLines="0" text="{Lista>Codcomm}"/>
+							<Text id="text6" text="{Lista>Descr}"	/>
+							<Text id="text7" maxLines="0" text="{Lista>Tpcomm}"/>
+							<DatePicker id="text8"  dateValue="{Lista>Dinizio}"/>
+							<DatePicker id="text9"  dateValue="{Lista>Dfine}"/>
+							<Text id="text10" maxLines="0" text="{Lista>Importotot}"/>
+							<Text id="text11" maxLines="0" text="{Lista>Ratevend}"/>
+							<Text id="text12" maxLines="0" text="{Lista>Cliente}"/>
+						</cells>
+					</ColumnListItem>
+				</items>
+
+				<columns>
+					<!--Codice commessa-->
+					<Column id="CodCommessa">
+						<Text text="{i18n>CodCommessa}" />
+					</Column>
+					<!--Descrizione-->
+					<Column id="Descr">
+						<Text text="{i18n>Descr}" />
+					</Column>
+					<!--Tipologia commerciale-->
+					<Column id="Tpcomm">
+						<Text text="{i18n>Tpcomm}" />
+					</Column>
+					<!--Data inizio-->
+					<Column id="Dinizio">
+						<Text text="{i18n>Dinizio}" />
+					</Column>
+					<!--Data fine-->
+					<Column id="Dfine">
+						<Text text="{i18n>Dfine}" />
+					</Column>
+					<!--Importo totale-->
+					<Column id="Importotot">
+						<Text text="{i18n>Importotot}" />
+					</Column>
+					<!--Rate vendita-->
+					<Column id="Ratevend">
+						<Text text="{i18n>Ratevend}" />
+					</Column>
+					<!--Cliente-->
+					<Column id="Cliente">
+						<Text text="{i18n>Cliente}" />
+					</Column>
+				</columns>
+
+				
+			</Table>
+		</semantic:content>
+
+		<!--<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>-->
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>

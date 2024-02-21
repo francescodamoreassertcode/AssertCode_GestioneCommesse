@@ -1,0 +1,249 @@
+<edmx:Edmx
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="ZGW_AMMINISTRAZIONE_SRV" xml:lang="en" sap:schema-version="1">
+            <Annotation
+                xmlns="http://docs.oasis-open.org/odata/ns/edm" Term="Core.SchemaVersion" String="1.0.0"/>
+                <EntityType Name="DIPENDENTE" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Codice identificativ"/>
+                    <Property Name="Nome" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Nome"/>
+                    <Property Name="Cognome" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Cognome"/>
+                    <Property Name="DataNascita" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="LuogoNascita" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Luogo nascita"/>
+                    <Property Name="CodiceFisc" Type="Edm.String" MaxLength="16" sap:unicode="false" sap:label="Codice fiscale"/>
+                    <Property Name="Residenza" Type="Edm.String" MaxLength="90" sap:unicode="false" sap:label="Indirizzo di residen"/>
+                    <Property Name="Domicilio" Type="Edm.String" MaxLength="90" sap:unicode="false" sap:label="Indirizzo di domicil"/>
+                    <Property Name="DataAssunzione" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="DataFineContr" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="TipoContratto" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Tipo contratto"/>
+                    <Property Name="Urllinkedin" Type="Edm.String" sap:unicode="false" sap:label="URL profilo Linkedin"/>
+                    <Property Name="Primage" Type="Edm.String" sap:unicode="false" sap:label="Immagine profilo"/>
+                    <Property Name="CostGiornDip" Type="Edm.Decimal" Precision="12" Scale="2" sap:unicode="false" sap:label="Costo aziendale gior"/>
+                    <NavigationProperty Name="FORMAZIONESet" Relationship="ZGW_AMMINISTRAZIONE_SRV.Dipendente_Formazione" FromRole="FromRole_Dipendente_Formazione" ToRole="ToRole_Dipendente_Formazione"/>
+                    <NavigationProperty Name="ESPERIENZESet" Relationship="ZGW_AMMINISTRAZIONE_SRV.Dipendente_Esperienze" FromRole="FromRole_Dipendente_Esperienze" ToRole="ToRole_Dipendente_Esperienze"/>
+                    <NavigationProperty Name="SKILLSet" Relationship="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE_SKILL" FromRole="FromRole_DIPENDENTE_SKILL" ToRole="ToRole_DIPENDENTE_SKILL"/>
+                    <NavigationProperty Name="LINGUESKILLSet" Relationship="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE_LINGUESKILL" FromRole="FromRole_DIPENDENTE_LINGUESKILL" ToRole="ToRole_DIPENDENTE_LINGUESKILL"/>
+                </EntityType>
+                <EntityType Name="FORMAZIONE" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                        <PropertyRef Name="Progform"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Codice identificativ"/>
+                    <Property Name="Progform" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Progressivo Formazio"/>
+                    <Property Name="Dtin" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="DATA INIZIO"/>
+                    <Property Name="Dtfn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="DATA FINE"/>
+                    <Property Name="Lgform" Type="Edm.String" MaxLength="60" sap:unicode="false" sap:label="Luogo Formazione"/>
+                    <Property Name="Istfrom" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="Istituto formazione"/>
+                    <Property Name="Descr" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="Descrizione"/>
+                    <Property Name="Vot" Type="Edm.Byte" sap:unicode="false" sap:label="Votazione"/>
+                </EntityType>
+                <EntityType Name="ESPERIENZE" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="CID"/>
+                    <Property Name="Pep" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Progressivo"/>
+                    <Property Name="Dtin" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="DATA INIZIO"/>
+                    <Property Name="Dtfn" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="DATA FINE"/>
+                    <Property Name="Nomaz" Type="Edm.String" MaxLength="100" sap:unicode="false" sap:label="NOME AZIENDA"/>
+                    <Property Name="Dsru" Type="Edm.String" MaxLength="255" sap:unicode="false" sap:label="DESCRIZIONE RUOLO"/>
+                </EntityType>
+                <EntityType Name="SKILL" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                        <PropertyRef Name="ProgressivoSkill"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Codice identificativ"/>
+                    <Property Name="ProgressivoSkill" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="PROGRESSIVO SKILL"/>
+                    <Property Name="Tipologia" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Tipologia"/>
+                    <Property Name="Nome" Type="Edm.String" MaxLength="50" sap:unicode="false" sap:label="Nome"/>
+                    <Property Name="Descrizione" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                    <Property Name="Livello" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Data Element LIVELLO"/>
+                </EntityType>
+                <EntityType Name="LINGUESKILL" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                        <PropertyRef Name="CodiceLingua"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Codice identificativ"/>
+                    <Property Name="CodiceLingua" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Cod lingua"/>
+                    <Property Name="Nome" Type="Edm.String" MaxLength="80" sap:unicode="false" sap:label="Lingua"/>
+                    <Property Name="Descrizione" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                    <Property Name="Livello" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Livello lingua"/>
+                    <Property Name="LivelloStandard" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Livello standard"/>
+                </EntityType>
+                <EntityType Name="COMMESSE" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Codcomm"/>
+                    </Key>
+                    <Property Name="Codcomm" Type="Edm.String" Nullable="false" MaxLength="30" sap:unicode="false" sap:label="Cod. Commessa"/>
+                    <Property Name="Descr" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                    <Property Name="Tpcomm" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Tip. Commessa"/>
+                    <Property Name="Dinizio" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="Dfine" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="Importotot" Type="Edm.Decimal" Precision="12" Scale="2" sap:unicode="false" sap:label="Importo totale"/>
+                    <Property Name="Ratevend" Type="Edm.Decimal" Precision="12" Scale="2" sap:unicode="false" sap:label="Rate Vend."/>
+                    <Property Name="Cliente" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Cliente"/>
+                </EntityType>
+                <EntityType Name="TIPOEVENTI" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cdev"/>
+                    </Key>
+                    <Property Name="Cdev" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Codice evento"/>
+                    <Property Name="Evento" Type="Edm.String" MaxLength="90" sap:unicode="false" sap:label="Evento"/>
+                    <Property Name="Descr" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                </EntityType>
+                <EntityType Name="STATI" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cdst"/>
+                    </Key>
+                    <Property Name="Cdst" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="Codice Stato"/>
+                    <Property Name="Descst" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                </EntityType>
+                <EntityType Name="CLIENTI" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Idcliente"/>
+                    </Key>
+                    <Property Name="Idcliente" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="ID CLIENTE"/>
+                    <Property Name="Descrizione" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                </EntityType>
+                <EntityType Name="CONSHEAD" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="8" sap:unicode="false" sap:label="Codice identificativ"/>
+                    <Property Name="Anno" Type="Edm.String" MaxLength="4" sap:unicode="false" sap:label="Anno"/>
+                    <Property Name="Mese" Type="Edm.String" MaxLength="2" sap:unicode="false" sap:label="Mese"/>
+                    <Property Name="Stato" Type="Edm.String" MaxLength="3" sap:unicode="false" sap:label="Stato"/>
+                    <Property Name="Datainvappr" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="Dataappr" Type="Edm.DateTime" Precision="7" sap:unicode="false" sap:label="Date"/>
+                    <Property Name="Utenteapprov" Type="Edm.String" MaxLength="90" sap:unicode="false" sap:label="utente approvatore"/>
+                    <NavigationProperty Name="CONSPOSSet" Relationship="ZGW_AMMINISTRAZIONE_SRV.CONSHEAD_CONSPOS" FromRole="FromRole_CONSHEAD_CONSPOS" ToRole="ToRole_CONSHEAD_CONSPOS"/>
+                </EntityType>
+                <EntityType Name="LINGUE" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="CodLingua"/>
+                    </Key>
+                    <Property Name="CodLingua" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Cod lingua"/>
+                    <Property Name="Descrizione" Type="Edm.String" MaxLength="180" sap:unicode="false" sap:label="Descrizione"/>
+                </EntityType>
+                <EntityType Name="CONSPOS" sap:content-version="1">
+                    <Key>
+                        <PropertyRef Name="Cid"/>
+                    </Key>
+                    <Property Name="Cid" Type="Edm.String" Nullable="false" MaxLength="90" sap:unicode="false" sap:label="CID" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Anno" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="Anno" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Mese" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="Mese" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Giorno" Type="Edm.String" Nullable="false" MaxLength="2" sap:unicode="false" sap:label="GIORNO" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="TipoEvento" Type="Edm.String" Nullable="false" MaxLength="3" sap:unicode="false" sap:label="TIPOEVE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Commessa" Type="Edm.String" Nullable="false" MaxLength="4" sap:unicode="false" sap:label="COMMESSA" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                    <Property Name="Ore" Type="Edm.Decimal" Nullable="false" Precision="12" Scale="2" sap:unicode="false" sap:label="ORE" sap:creatable="false" sap:updatable="false" sap:sortable="false" sap:filterable="false"/>
+                </EntityType>
+                <Association Name="Dipendente_Esperienze" sap:content-version="1">
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE" Multiplicity="1" Role="FromRole_Dipendente_Esperienze"/>
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.ESPERIENZE" Multiplicity="*" Role="ToRole_Dipendente_Esperienze"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_Dipendente_Esperienze">
+                            <PropertyRef Name="Cid"/>
+                        </Principal>
+                        <Dependent Role="ToRole_Dipendente_Esperienze">
+                            <PropertyRef Name="Cid"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="DIPENDENTE_SKILL" sap:content-version="1">
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE" Multiplicity="1" Role="FromRole_DIPENDENTE_SKILL"/>
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.SKILL" Multiplicity="*" Role="ToRole_DIPENDENTE_SKILL"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_DIPENDENTE_SKILL">
+                            <PropertyRef Name="Cid"/>
+                        </Principal>
+                        <Dependent Role="ToRole_DIPENDENTE_SKILL">
+                            <PropertyRef Name="Cid"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="DIPENDENTE_LINGUESKILL" sap:content-version="1">
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE" Multiplicity="1" Role="FromRole_DIPENDENTE_LINGUESKILL"/>
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.LINGUESKILL" Multiplicity="*" Role="ToRole_DIPENDENTE_LINGUESKILL"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_DIPENDENTE_LINGUESKILL">
+                            <PropertyRef Name="Cid"/>
+                        </Principal>
+                        <Dependent Role="ToRole_DIPENDENTE_LINGUESKILL">
+                            <PropertyRef Name="Cid"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="Dipendente_Formazione" sap:content-version="1">
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE" Multiplicity="1" Role="FromRole_Dipendente_Formazione"/>
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.FORMAZIONE" Multiplicity="*" Role="ToRole_Dipendente_Formazione"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_Dipendente_Formazione">
+                            <PropertyRef Name="Cid"/>
+                        </Principal>
+                        <Dependent Role="ToRole_Dipendente_Formazione">
+                            <PropertyRef Name="Cid"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <Association Name="CONSHEAD_CONSPOS" sap:content-version="1">
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.CONSHEAD" Multiplicity="1" Role="FromRole_CONSHEAD_CONSPOS"/>
+                    <End Type="ZGW_AMMINISTRAZIONE_SRV.CONSPOS" Multiplicity="*" Role="ToRole_CONSHEAD_CONSPOS"/>
+                    <ReferentialConstraint>
+                        <Principal Role="FromRole_CONSHEAD_CONSPOS">
+                            <PropertyRef Name="Cid"/>
+                        </Principal>
+                        <Dependent Role="ToRole_CONSHEAD_CONSPOS">
+                            <PropertyRef Name="Cid"/>
+                        </Dependent>
+                    </ReferentialConstraint>
+                </Association>
+                <EntityContainer Name="ZGW_AMMINISTRAZIONE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx">
+                    <EntitySet Name="DIPENDENTESet" EntityType="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="FORMAZIONESet" EntityType="ZGW_AMMINISTRAZIONE_SRV.FORMAZIONE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="ESPERIENZESet" EntityType="ZGW_AMMINISTRAZIONE_SRV.ESPERIENZE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="SKILLSet" EntityType="ZGW_AMMINISTRAZIONE_SRV.SKILL" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="LINGUESKILLSet" EntityType="ZGW_AMMINISTRAZIONE_SRV.LINGUESKILL" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="COMMESSESet" EntityType="ZGW_AMMINISTRAZIONE_SRV.COMMESSE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="TIPOEVENTISet" EntityType="ZGW_AMMINISTRAZIONE_SRV.TIPOEVENTI" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="STATISet" EntityType="ZGW_AMMINISTRAZIONE_SRV.STATI" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="CLIENTISet" EntityType="ZGW_AMMINISTRAZIONE_SRV.CLIENTI" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="CONSHEADSet" EntityType="ZGW_AMMINISTRAZIONE_SRV.CONSHEAD" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="LINGUESet" EntityType="ZGW_AMMINISTRAZIONE_SRV.LINGUE" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <EntitySet Name="CONSPOSSet" EntityType="ZGW_AMMINISTRAZIONE_SRV.CONSPOS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:pageable="false" sap:addressable="false" sap:content-version="1"/>
+                    <AssociationSet Name="Dipendente_FormazioneSet" Association="ZGW_AMMINISTRAZIONE_SRV.Dipendente_Formazione" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="DIPENDENTESet" Role="FromRole_Dipendente_Formazione"/>
+                        <End EntitySet="FORMAZIONESet" Role="ToRole_Dipendente_Formazione"/>
+                    </AssociationSet>
+                    <AssociationSet Name="DIPENDENTE_LINGUESKILLSet" Association="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE_LINGUESKILL" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="DIPENDENTESet" Role="FromRole_DIPENDENTE_LINGUESKILL"/>
+                        <End EntitySet="LINGUESKILLSet" Role="ToRole_DIPENDENTE_LINGUESKILL"/>
+                    </AssociationSet>
+                    <AssociationSet Name="Dipendente_EsperienzeSet" Association="ZGW_AMMINISTRAZIONE_SRV.Dipendente_Esperienze" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="DIPENDENTESet" Role="FromRole_Dipendente_Esperienze"/>
+                        <End EntitySet="ESPERIENZESet" Role="ToRole_Dipendente_Esperienze"/>
+                    </AssociationSet>
+                    <AssociationSet Name="DIPENDENTE_SKILLSet" Association="ZGW_AMMINISTRAZIONE_SRV.DIPENDENTE_SKILL" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="DIPENDENTESet" Role="FromRole_DIPENDENTE_SKILL"/>
+                        <End EntitySet="SKILLSet" Role="ToRole_DIPENDENTE_SKILL"/>
+                    </AssociationSet>
+                    <AssociationSet Name="CONSHEAD_CONSPOSSet" Association="ZGW_AMMINISTRAZIONE_SRV.CONSHEAD_CONSPOS" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                        <End EntitySet="CONSHEADSet" Role="FromRole_CONSHEAD_CONSPOS"/>
+                        <End EntitySet="CONSPOSSet" Role="ToRole_CONSHEAD_CONSPOS"/>
+                    </AssociationSet>
+                </EntityContainer>
+                <atom:link
+                    xmlns:atom="http://www.w3.org/2005/Atom" rel="self" href="./sap/ZGW_AMMINISTRAZIONE_SRV/$metadata"/>
+                    <atom:link
+                        xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version" href="./sap/ZGW_AMMINISTRAZIONE_SRV/$metadata"/>
+                    </Schema>
+                </edmx:DataServices>
+            </edmx:Edmx>
