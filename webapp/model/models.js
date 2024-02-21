@@ -21,6 +21,11 @@ sap.ui.define([
 			createDettaglioModel : function(){
 				var oModel = new JSONModel({});
 				return oModel;      
+			},
+			
+			createFilterModel : function(){
+				var oModel = new JSONModel({ "Codcomm": ''});
+				return oModel;
 			}
 
 

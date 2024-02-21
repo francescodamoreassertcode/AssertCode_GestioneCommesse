@@ -32,8 +32,11 @@ sap.ui.define([
 				// set the list model
 				this.setModel(models.createListaModel(), "Lista");
 				
+				// set filter model
+				this.setModel(models.createFilterModel(), "Filtro");
+				
 				// set the detail model
-				this.setModel(models.createDettaglioModel(), "Dettaglio")
+				this.setModel(models.createDettaglioModel(), "Dettaglio");
 
 				// create the views based on the url/hash
 				this.getRouter().initialize();

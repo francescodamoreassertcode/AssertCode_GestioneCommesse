@@ -21,35 +21,16 @@ sap.ui.define([
 			 * @public
 			 */
 			onInit : function () {
-				var oViewModel,
-					iOriginalBusyDelay,
-					oTable = this.byId("table");
-
-				// Put down worklist table's original value for busy indicator delay,
-				// so it can be restored later on. Busy handling on the table is
-				// taken care of by the table itself.
-				iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
-				// keeps the search state
-				this._aTableSearchState = [];
-
-				// Model used to manipulate control states
-				oViewModel = new JSONModel({
-					worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
-					shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
-					shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
-					shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
-					tableNoDataText : this.getResourceBundle().getText("tableNoDataText"),
-					tableBusyDelay : 0
-				});
-				this.setModel(oViewModel, "worklistView");
-
-				// Make sure, busy indication is showing immediately so there is no
-				// break after the busy indication for loading the view's meta data is
-				// ended (see promise 'oWhenMetadataIsLoaded' in AppController)
-				oTable.attachEventOnce("updateFinished", function(){
-					// Restore original busy indicator delay for worklist's table
-					oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
-				});
+					this.getOwnerComponent().getModel().read("/COMMESSESet", {
+			/*filters: filters,
+			urlParameters: {},*/
+			success: function(data) {
+				this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
+			}.bind(this),
+			error: function(error) {}.bind(this)
+			});
+			
+			
 			},
 
 			/* =========================================================== */
@@ -100,24 +81,30 @@ sap.ui.define([
 			},
 
 
-			onSearch : function (oEvent) {
-				if (oEvent.getParameters().refreshButtonPressed) {
-					// Search field's 'refresh' button has been pressed.
-					// This is visible if you select any master list item.
-					// In this case no new search is triggered, we only
-					// refresh the list binding.
-					this.onRefresh();
-				} else {
-					var aTableSearchState = [];
-					var sQuery = oEvent.getParameter("query");
+			onSearch: function(){
+			
+			//VARIABLES DEFINITION
+			var filters = [];
+			var Codcomm = this.getOwnerComponent().getModel("Filtro").getData().Codcomm;
+			
+			
+			//SET FILTER PARAMETERS
+			filters.push(new sap.ui.model.Filter("Codcomm", sap.ui.model.FilterOperator.Contains, Codcomm));
 
-					if (sQuery && sQuery.length > 0) {
-						aTableSearchState = [new Filter("NumeroOrdine", FilterOperator.Contains, sQuery)];
-					}
-					this._applySearch(aTableSearchState);
-				}
-
-			},
+			//READING TO LIST FOR LOGGED USER
+			this.getOwnerComponent().getModel().read("/COMMESSESet", {
+				filters: filters,
+				urlParameters: {
+				},
+				success: function(data) {
+					
+					this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
+					
+				}.bind(this),
+				error: function(error) {}.bind(this)
+			});
+			
+		},
 
 			/**
 			 * Event handler for refresh event. Keeps filter, sort

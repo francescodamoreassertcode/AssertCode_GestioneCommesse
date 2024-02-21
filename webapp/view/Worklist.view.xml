@@ -19,13 +19,7 @@
 			<Table
 				id="table"
 				width="auto"
-				items="{
-					path: 'Lista>/Dati',
-					sorter: {
-						path: 'Codcomm',
-						descending: false
-					}
-				}"
+				items="{Lista>/Dati}"
 				noDataText="{worklistView>/tableNoDataText}"
 				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
 				growing="true"
@@ -37,6 +31,7 @@
 						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
 						<ToolbarSpacer />
 						<SearchField
+							value="{Filtro>/Codcomm}"
 							id="searchField"
 							tooltip="{i18n>worklistSearchTooltip}"
 							search="onSearch"
@@ -50,8 +45,8 @@
 							<Text id="text5" maxLines="0" text="{Lista>Codcomm}"/>
 							<Text id="text6" text="{Lista>Descr}"	/>
 							<Text id="text7" maxLines="0" text="{Lista>Tpcomm}"/>
-							<DatePicker id="text8"  dateValue="{Lista>Dinizio}"/>
-							<DatePicker id="text9"  dateValue="{Lista>Dfine}"/>
+							<DatePicker editable="false" id="text8"  dateValue="{Lista>Dinizio}"/>
+							<DatePicker editable="false" id="text9"  dateValue="{Lista>Dfine}"/>
 							<Text id="text10" maxLines="0" text="{Lista>Importotot}"/>
 							<Text id="text11" maxLines="0" text="{Lista>Ratevend}"/>
 							<Text id="text12" maxLines="0" text="{Lista>Cliente}"/>
@@ -62,7 +57,7 @@
 				<columns>
 					<!--Codice commessa-->
 					<Column id="CodCommessa">
-						<Text text="{i18n>CodCommessa}" />
+						<Text text="{i18n>Codcomm}" />
 					</Column>
 					<!--Descrizione-->
 					<Column id="Descr">
