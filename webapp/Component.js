@@ -38,6 +38,9 @@ sap.ui.define([
 				// set the detail model
 				this.setModel(models.createDettaglioModel(), "Dettaglio");
 
+				// set the insert new row model
+				this.setModel(models.createDataModel(), "createDataModel");
+
 				// create the views based on the url/hash
 				this.getRouter().initialize();
 			},

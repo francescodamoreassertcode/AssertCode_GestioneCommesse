@@ -13,11 +13,27 @@
 			<Title text="{i18n>worklistTitle}" />
 		</semantic:titleHeading>
 		
+					<semantic:headerContent>
+				<SearchField
+					value="{Filtro>/Codcomm}"
+					id="searchField"
+					tooltip="{i18n>worklistSearchTooltip}"
+					search="onSearch"
+					width="auto">
+				</SearchField>
+				<ToolbarSpacer/>
+				<Button text="{i18n>Salva}" press="onSaveData" type="Emphasized"/>
+				<Button text="{i18n>Inserisci}" press="onInsertNewRow" icon="sap-icon://add"/>
+				<Button text="{i18n>Elimina}" press="onDelete" icon="sap-icon://delete"/>
+			</semantic:headerContent>
 
 
 		<semantic:content>
+			
+
 			<Table
 				id="table"
+				mode="MultiSelect"
 				width="auto"
 				items="{Lista>/Dati}"
 				noDataText="{worklistView>/tableNoDataText}"
@@ -26,19 +42,13 @@
 				growingScrollToLoad="true"
 				updateFinished="onUpdateFinished">
 
-				<headerToolbar>
+		<!--		<headerToolbar>
 					<Toolbar>
 						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
 						<ToolbarSpacer />
-						<SearchField
-							value="{Filtro>/Codcomm}"
-							id="searchField"
-							tooltip="{i18n>worklistSearchTooltip}"
-							search="onSearch"
-							width="auto">
-						</SearchField>
+						
 					</Toolbar>
-				</headerToolbar>
+				</headerToolbar>-->
 				<items>
 					<ColumnListItem counter="0" id="item1">
 						<cells>

@@ -26,6 +26,23 @@ sap.ui.define([
 			createFilterModel : function(){
 				var oModel = new JSONModel({ "Codcomm": ''});
 				return oModel;
+			},
+			
+			createDataModel : function(){
+				var oModel = new JSONModel({
+					
+					"Codcomm" : '' ,
+					"Descr" : '' ,
+					"Tpcomm" : '' ,
+					"Dinizio" : new Date(),
+					"Dfine" : new Date(),
+					"Importotot" : '0.00', 
+					"Ratevend" : '0.00' ,
+					"Cliente" : '' 
+
+					
+				});
+				return oModel;
 			}
 
 

@@ -1,14 +1,17 @@
 /*global location history */
 sap.ui.define([
-		"assertcode/CommesseApplication/controller/BaseController",
-		"sap/ui/model/json/JSONModel",
-		"assertcode/CommesseApplication/model/formatter",
-		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator"
-	], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
-		"use strict";
+	"assertcode/CommesseApplication/controller/BaseController",
+	"sap/ui/model/json/JSONModel",
+	"sap/m/Dialog",
+	"assertcode/CommesseApplication/model/formatter",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator",
+	'sap/m/MessageToast',
+	"sap/ui/core/Fragment"
+], function(BaseController, JSONModel, Dialog, formatter, Filter, FilterOperator, MessageToast, Fragment) {
+	"use strict";
 
-		return BaseController.extend("assertcode.CommesseApplication.controller.Worklist", {
+	return BaseController.extend("assertcode.CommesseApplication.controller.Worklist", {
 
 			formatter: formatter,
 
@@ -20,17 +23,16 @@ sap.ui.define([
 			 * Called when the worklist controller is instantiated.
 			 * @public
 			 */
-			onInit : function () {
-					this.getOwnerComponent().getModel().read("/COMMESSESet", {
-			/*filters: filters,
-			urlParameters: {},*/
-			success: function(data) {
-				this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
-			}.bind(this),
-			error: function(error) {}.bind(this)
-			});
-			
-			
+			onInit: function() {
+				this.getOwnerComponent().getModel().read("/COMMESSESet", {
+					/*filters: filters,
+					urlParameters: {},*/
+					success: function(data) {
+						this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
+					}.bind(this),
+					error: function(error) {}.bind(this)
+				});
+
 			},
 
 			/* =========================================================== */
@@ -46,7 +48,7 @@ sap.ui.define([
 			 * @param {sap.ui.base.Event} oEvent the update finished event
 			 * @public
 			 */
-			onUpdateFinished : function (oEvent) {
+			onUpdateFinished: function(oEvent) {
 				// update the worklist's object counter after the table update
 				var sTitle,
 					oTable = oEvent.getSource(),
@@ -66,7 +68,7 @@ sap.ui.define([
 			 * @param {sap.ui.base.Event} oEvent the table selectionChange event
 			 * @public
 			 */
-			onPress : function (oEvent) {
+			onPress: function(oEvent) {
 				// The source is the list item that got pressed
 				this._showObject(oEvent.getSource());
 			},
@@ -76,77 +78,173 @@ sap.ui.define([
 			 * We navigate back in the browser historz
 			 * @public
 			 */
-			onNavBack : function() {
+			onNavBack: function() {
 				history.go(-1);
 			},
 
+			// method that made work landing page searchbar
+			onSearch: function() {
 
-			onSearch: function(){
-			
-			//VARIABLES DEFINITION
-			var filters = [];
-			var Codcomm = this.getOwnerComponent().getModel("Filtro").getData().Codcomm;
-			
-			
-			//SET FILTER PARAMETERS
-			filters.push(new sap.ui.model.Filter("Codcomm", sap.ui.model.FilterOperator.Contains, Codcomm));
+				//VARIABLES DEFINITION
+				var filters = [];
+				var Codcomm = this.getOwnerComponent().getModel("Filtro").getData().Codcomm;
 
-			//READING TO LIST FOR LOGGED USER
-			this.getOwnerComponent().getModel().read("/COMMESSESet", {
-				filters: filters,
-				urlParameters: {
-				},
+				//SET FILTER PARAMETERS
+				filters.push(new sap.ui.model.Filter("Codcomm", sap.ui.model.FilterOperator.Contains, Codcomm));
+
+				//READING TO LIST FOR LOGGED USER
+				this.getOwnerComponent().getModel().read("/COMMESSESet", {
+					filters: filters,
+					urlParameters: {},
+					success: function(data) {
+
+						this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
+
+					}.bind(this),
+					error: function(error) {}.bind(this)
+				});
+
+			},
+
+			// method that let user create new row
+			onInsertNewRow: function() {
+
+				//this.pDialog ??= this.loadFragment({
+				//             name: "assertcode.CommesseApplication.view.fragment.InserimentoDialog"
+				//         });
+				
+				sap.ui.getCore().this = this;
+				var oView = this.getView();
+				// create dialog lazily
+				if (!this.byId("openDialog")) {
+					// load asynchronous XML fragment
+					Fragment.load({
+						id: oView.getId(),
+						name: "assertcode.CommesseApplication.view.fragment.InserimentoDialog",
+						controller: this
+					}).then(function(oDialog) {
+						// connect dialog to the root view 
+						//of this component (models, lifecycle)
+						oView.addDependent(oDialog);
+						oDialog.open();
+					});
+				} else {
+					this.byId("openDialog").open();
+				}
+			
+
+
+
+			// 	this.pDialog = sap.ui.xmlfragment("assertcode.CommesseApplication.view.fragment.InserimentoDialog", this);
+
+			// this.getView().addDependent(this.pDialog);
+
+			// this.pDialog.open();
+
+		},
+		
+					closeDialog: function() {
+				this.byId("openDialog").close();
+			},
+
+
+
+		// method usefull to save new data from creation
+		onSaveInsertData: function() {
+
+			var that = this;
+			var obj = this.getOwnerComponent().getModel("createDataModel").getData();
+
+			this.getOwnerComponent().getModel().create("/COMMESSESet", obj, {
+				method: "POST",
+				success: function(data) {
+
+					that.getView().byId("InsertDataDialog").close();
+					MessageToast.show('Operazione effettuata correttamente');
+					that.onSearch();
+
+				}.bind(this),
+				error: function(error) {}.bind(this)
+			});
+
+		},
+
+		// method that let you delete record
+		/*onDelete: function(){
+			
+			
+			var contentToBeSaved =  this.getView().byId("table").getSelectedItems();
+			var that = this;
+			
+			this.getOwnerComponent().getModel().setUseBatch(false);
+			
+			for(var i in contentToBeSaved){
+				
+					
+				var obj = contentToBeSaved[i].getBindingContext("Lista").getObject();
+				
+				this.getOwnerComponent().getModel().remove("/COMMESSESet('" + obj.Codcomm + "')", {
+				method: "DELETE",
 				success: function(data) {
 					
-					this.getOwnerComponent().getModel("Lista").setProperty("/Dati", data.results);
+					//that.getView().byId("InsertDataDialog").close();
+					MessageToast.show('Operazione effettuata correttamente');
+					/*that.onSearch();
+					
 					
 				}.bind(this),
 				error: function(error) {}.bind(this)
 			});
 			
+			
+				
+				
+				
+			}
+			
+			
+		}*/
+		/**
+		 * Event handler for refresh event. Keeps filter, sort
+		 * and group settings and refreshes the list binding.
+		 * @public
+		 */
+		onRefresh: function() {
+			var oTable = this.byId("table");
+			oTable.getBinding("items").refresh();
 		},
 
-			/**
-			 * Event handler for refresh event. Keeps filter, sort
-			 * and group settings and refreshes the list binding.
-			 * @public
-			 */
-			onRefresh : function () {
-				var oTable = this.byId("table");
-				oTable.getBinding("items").refresh();
-			},
+		/* =========================================================== */
+		/* internal methods                                            */
+		/* =========================================================== */
 
-			/* =========================================================== */
-			/* internal methods                                            */
-			/* =========================================================== */
+		/**
+		 * Shows the selected item on the object page
+		 * On phones a additional history entry is created
+		 * @param {sap.m.ObjectListItem} oItem selected Item
+		 * @private
+		 */
+		_showObject: function(oItem) {
+			this.getRouter().navTo("object", {
+				objectId: oItem.getBindingContext().getProperty("NumeroOrdine")
+			});
+		},
 
-			/**
-			 * Shows the selected item on the object page
-			 * On phones a additional history entry is created
-			 * @param {sap.m.ObjectListItem} oItem selected Item
-			 * @private
-			 */
-			_showObject : function (oItem) {
-				this.getRouter().navTo("object", {
-					objectId: oItem.getBindingContext().getProperty("NumeroOrdine")
-				});
-			},
-
-			/**
-			 * Internal helper method to apply both filter and search state together on the list binding
-			 * @param {sap.ui.model.Filter[]} aTableSearchState An array of filters for the search
-			 * @private
-			 */
-			_applySearch: function(aTableSearchState) {
-				var oTable = this.byId("table"),
-					oViewModel = this.getModel("worklistView");
-				oTable.getBinding("items").filter(aTableSearchState, "Application");
-				// changes the noDataText of the list in case there are no filter results
-				if (aTableSearchState.length !== 0) {
-					oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
-				}
+		/**
+		 * Internal helper method to apply both filter and search state together on the list binding
+		 * @param {sap.ui.model.Filter[]} aTableSearchState An array of filters for the search
+		 * @private
+		 */
+		_applySearch: function(aTableSearchState) {
+			var oTable = this.byId("table"),
+				oViewModel = this.getModel("worklistView");
+			oTable.getBinding("items").filter(aTableSearchState, "Application");
+			// changes the noDataText of the list in case there are no filter results
+			if (aTableSearchState.length !== 0) {
+				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			}
+		}
 
-		});
-	}
+	});
+}
 );

@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
+   xmlns:core="sap.ui.core">
+   <Dialog
+      id="InsertDataDialog"
+      title="{i18n>TitoloInserimento}">
+   	
+   	
+   	
+   		
+   		<f:SimpleForm id="SimpleFormChange354"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			title="{i18n>subTitileInsert}"
+			labelSpanXL="3"
+			labelSpanL="3"
+			labelSpanM="3"
+			labelSpanS="12"
+			adjustLabelSpan="false"
+			emptySpanXL="4"
+			emptySpanL="4"
+			emptySpanM="4"
+			emptySpanS="0"
+			columnsXL="1"
+			columnsL="1"
+			columnsM="1"
+			singleContainerFullSize="false" >
+			<f:content>
+
+				<Label text="{i18n>Codcomm}" />
+				<Input value="{createDataModel>/Codcomm}" placeholder="{i18n>plcCodcomm}"/>
+				
+				<Label text="{i18n>Descr}" />
+				<Input value="{createDataModel>/Descr}" placeholder="{i18n>plcDescr}"/>
+				
+				<Label text="{i18n>Tpcomm}" />
+				<Input value="{createDataModel>/Tpcomm}" placeholder="{i18n>plcTpcomm}"/>
+				
+				<Label text="{i18n>Dinizio}" />
+				<!--<Input value="{createDataModel>/DataRConsegna}" placeholder="{i18n>plcDataRConsegna}"/>-->
+				<DatePicker editable="true" dateValue="{createDataModel>/Dinizio}"/>
+				
+				<Label text="{i18n>Dfine}" />
+				<DatePicker editable="true" dateValue="{createDataModel>/Dfine}"/>				
+				
+				<Label text="{i18n>Importotot}" />
+				<Input value="{createDataModel>/Importotot}" placeholder="{i18n>plcImportotot}"/>
+				
+				<Label text="{i18n>Ratevend}" />
+				<Input value="{createDataModel>/Ratevend}" placeholder="{i18n>plcRatevend}"/>
+			
+				
+				<Label text="{i18n>Cliente}" />
+				<Input value="{createDataModel>/Cliente}" placeholder="{i18n>plcCliente}"/>
+				
+				
+			</f:content>
+		</f:SimpleForm>
+		
+  
+   	
+   	<OverflowToolbar class="newstyleOverFlow">
+		<ToolbarSpacer />
+		<Button text="{i18n>Salva}" press="onSaveInsertData" type="Accept" icon="sap-icon://save" />
+		<Button text="{i18n>Close}" press="onCloseDialog"  type="Reject" icon="sap-icon://decline" />
+   	</OverflowToolbar>
+   	
+   	 	
+   	
+   	</Dialog>
+      
+     
+      
+</core:FragmentDefinition>
