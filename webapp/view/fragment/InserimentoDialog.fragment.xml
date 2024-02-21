@@ -10,7 +10,7 @@
    	
    	
    		
-   		<f:SimpleForm id="SimpleFormChange354"
+   		<f:SimpleForm 
 			editable="true"
 			layout="ResponsiveGridLayout"
 			title="{i18n>subTitileInsert}"

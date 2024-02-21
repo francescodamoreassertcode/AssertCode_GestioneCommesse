@@ -168,9 +168,14 @@ sap.ui.define([
 			});
 
 		},
+		
+		// method that let you close the form dialog
+		onCloseDialog: function(){
+			this.getView().byId("InsertDataDialog").close();
+		},
 
 		// method that let you delete record
-		/*onDelete: function(){
+		onDelete: function(){
 			
 			
 			var contentToBeSaved =  this.getView().byId("table").getSelectedItems();
@@ -189,7 +194,7 @@ sap.ui.define([
 					
 					//that.getView().byId("InsertDataDialog").close();
 					MessageToast.show('Operazione effettuata correttamente');
-					/*that.onSearch();
+					that.onSearch();
 					
 					
 				}.bind(this),
@@ -203,7 +208,7 @@ sap.ui.define([
 			}
 			
 			
-		}*/
+		},
 		/**
 		 * Event handler for refresh event. Keeps filter, sort
 		 * and group settings and refreshes the list binding.
