@@ -149,90 +149,90 @@ sap.ui.define([
 
 
 
-		// method usefull to save new data from creation
-		onSaveInsertData: function() {
-
-			var that = this;
-			var obj = this.getOwnerComponent().getModel("createDataModel").getData();
-
-			this.getOwnerComponent().getModel().create("/COMMESSESet", obj, {
-				method: "POST",
-				success: function(data) {
-
-				
-					that.getView().byId("InsertDataDialog").close();
-					that.getOwnerComponent().getModel("createDataModel").setData({
+			// method usefull to save new data from creation
+			onSaveInsertData: function() {
+	
+				var that = this;
+				var obj = this.getOwnerComponent().getModel("createDataModel").getData();
+	
+				this.getOwnerComponent().getModel().create("/COMMESSESet", obj, {
+					method: "POST",
+					success: function(data) {
+	
 					
-					"Codcomm" : '' ,
-					"Descr" : '' ,
-					"Tpcomm" : '' ,
-					"Dinizio" : new Date(),
-					"Dfine" : new Date(),
-					"Importotot" : '0.00', 
-					"Ratevend" : '0.00' ,
-					"Cliente" : '' 
-
-					
+						that.getView().byId("InsertDataDialog").close();
+						that.getOwnerComponent().getModel("createDataModel").setData({
+						
+						"Codcomm" : '' ,
+						"Descr" : '' ,
+						"Tpcomm" : '' ,
+						"Dinizio" : new Date(),
+						"Dfine" : new Date(),
+						"Importotot" : '0.00', 
+						"Ratevend" : '0.00' ,
+						"Cliente" : '' 
+	
+						
+					});
+						
+						MessageToast.show('Operazione effettuata correttamente');
+						that.onSearch();
+	
+					}.bind(this),
+					error: function(error) {}.bind(this)
 				});
-					
-					MessageToast.show('Operazione effettuata correttamente');
-					that.onSearch();
-
-				}.bind(this),
-				error: function(error) {}.bind(this)
-			});
-
-		},
+	
+			},
 		
-		// method that let you close the form dialog
-		onCloseDialog: function(){
-			this.getView().byId("InsertDataDialog").close();
-		},
+			// method that let you close the form dialog
+			onCloseDialog: function(){
+				this.getView().byId("InsertDataDialog").close();
+			},
 
-		// method that let you delete record
-		onDelete: function(){
-			
-			
-			var contentToBeSaved =  this.getView().byId("table").getSelectedItems();
-			var that = this;
-			
-			this.getOwnerComponent().getModel().setUseBatch(false);
-			
-			for(var i in contentToBeSaved){
+			// method that let you delete record
+			onDelete: function(){
+				
+				
+				var contentToBeSaved =  this.getView().byId("table").getSelectedItems();
+				var that = this;
+				
+				this.getOwnerComponent().getModel().setUseBatch(false);
+				
+				for(var i in contentToBeSaved){
+					
+						
+					var obj = contentToBeSaved[i].getBindingContext("Lista").getObject();
+					
+					this.getOwnerComponent().getModel().remove("/COMMESSESet('" + obj.Codcomm + "')", {
+					method: "DELETE",
+					success: function(data) {
+						
+						//that.getView().byId("InsertDataDialog").close();
+						MessageToast.show('Operazione effettuata correttamente');
+						that.onSearch();
+						
+						
+					}.bind(this),
+					error: function(error) {}.bind(this)
+				});
+				
 				
 					
-				var obj = contentToBeSaved[i].getBindingContext("Lista").getObject();
-				
-				this.getOwnerComponent().getModel().remove("/COMMESSESet('" + obj.Codcomm + "')", {
-				method: "DELETE",
-				success: function(data) {
-					
-					//that.getView().byId("InsertDataDialog").close();
-					MessageToast.show('Operazione effettuata correttamente');
-					that.onSearch();
 					
 					
-				}.bind(this),
-				error: function(error) {}.bind(this)
-			});
-			
-			
+				}
 				
 				
-				
-			}
-			
-			
-		},
+			},
 		/**
 		 * Event handler for refresh event. Keeps filter, sort
 		 * and group settings and refreshes the list binding.
 		 * @public
 		 */
-		onRefresh: function() {
-			var oTable = this.byId("table");
-			oTable.getBinding("items").refresh();
-		},
+			onRefresh: function() {
+				var oTable = this.byId("table");
+				oTable.getBinding("items").refresh();
+			},
 
 		/* =========================================================== */
 		/* internal methods                                            */
@@ -244,11 +244,11 @@ sap.ui.define([
 		 * @param {sap.m.ObjectListItem} oItem selected Item
 		 * @private
 		 */
-		_showObject: function(oItem) {
-			this.getRouter().navTo("object", {
-				objectId: oItem.getBindingContext().getProperty("NumeroOrdine")
-			});
-		},
+			_showObject: function(oItem) {
+				this.getRouter().navTo("object", {
+					objectId: oItem.getBindingContext('Lista').getObject().Codcomm
+				});
+			},
 
 		/**
 		 * Internal helper method to apply both filter and search state together on the list binding

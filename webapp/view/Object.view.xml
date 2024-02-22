@@ -12,7 +12,7 @@
 		busyIndicatorDelay="{objectView>/delay}">
 
 		<semantic:titleHeading>
-			<Title text="{NumeroOrdine}" />
+			<Title text="{Codcomm}" />
 		</semantic:titleHeading>
 
 		<semantic:headerContent>

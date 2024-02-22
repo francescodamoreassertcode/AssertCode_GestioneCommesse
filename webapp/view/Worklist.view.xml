@@ -4,31 +4,30 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
 
-	<semantic:SemanticPage
-		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
-
-		<semantic:titleHeading>
-			<Title text="{i18n>worklistTitle}" />
-		</semantic:titleHeading>
+	<Page id="page">
+ 
+			
 		
-					<semantic:headerContent>
-				<SearchField
-					value="{Filtro>/Codcomm}"
-					id="searchField"
-					tooltip="{i18n>worklistSearchTooltip}"
-					search="onSearch"
-					width="auto">
-				</SearchField>
-				<ToolbarSpacer/>
-				<Button text="{i18n>Salva}" press="onSaveData" type="Emphasized"/>
-				<Button text="{i18n>Inserisci}" press="onInsertNewRow" icon="sap-icon://add"/>
-				<Button text="{i18n>Elimina}" press="onDelete" icon="sap-icon://delete"/>
-			</semantic:headerContent>
+
+		<headerContent>
+			
+			<Title text="{i18n>worklistTitle}" />
+			
+			<SearchField
+				value="{Filtro>/Codcomm}"
+				id="searchField"
+				tooltip="{i18n>worklistSearchTooltip}"
+				search="onSearch"
+				width="auto">
+			</SearchField>
+		
+		<ToolbarSpacer/>
+			<Button text="{i18n>Inserisci}" press="onInsertNewRow" type="Accept" icon="sap-icon://add"/>
+			<Button text="{i18n>Elimina}" press="onDelete" type="Reject" icon="sap-icon://delete"/>
+		</headerContent>
 
 
-		<semantic:content>
+		<content>
 			
 
 			<Table
@@ -50,9 +49,9 @@
 					</Toolbar>
 				</headerToolbar>-->
 				<items>
-					<ColumnListItem counter="0" id="item1">
+					<ColumnListItem counter="0" type="Navigation" press="onPress" id="item1">
 						<cells>
-							<Text id="text5" maxLines="0" text="{Lista>Codcomm}"/>
+							<Text id="text5" maxLines="0" text="{Lista>Codcomm}" />
 							<Text id="text6" text="{Lista>Descr}"	/>
 							<Text id="text7" maxLines="0" text="{Lista>Tpcomm}"/>
 							<DatePicker editable="false" id="text8"  dateValue="{Lista>Dinizio}"/>
@@ -101,13 +100,13 @@
 
 				
 			</Table>
-		</semantic:content>
+		</content>
 
-		<!--<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>-->
+		<!--<sendEmailAction>
+			<SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</sendEmailAction>-->
 
 
-	</semantic:SemanticPage>
+	</Page>
 
 </mvc:View>

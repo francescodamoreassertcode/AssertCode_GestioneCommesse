@@ -5,7 +5,10 @@
    xmlns:core="sap.ui.core">
    <Dialog
       id="InsertDataDialog"
-      title="{i18n>TitoloInserimento}">
+      title="{i18n>TitoloInserimento}"
+      class="brdbtm-0 w70"
+      contentWidth="50%"
+      >
    	
    	
    	
