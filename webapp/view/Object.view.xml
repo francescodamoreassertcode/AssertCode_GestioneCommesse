@@ -4,27 +4,23 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
 
-	<semantic:SemanticPage
+	<Page
 		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false"
 		busy="{objectView>/busy}"
 		busyIndicatorDelay="{objectView>/delay}">
 
-		<semantic:titleHeading>
+		<titleHeading>
 			<Title text="{Codcomm}" />
-		</semantic:titleHeading>
+		</titleHeading>
 
-		<semantic:headerContent>
+		<headerContent>
 			<ObjectNumber
 			/>
-		</semantic:headerContent>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>
+		</headerContent>
 
 
-	</semantic:SemanticPage>
+
+
+	</Page>
 
 </mvc:View>
