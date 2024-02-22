@@ -13,4 +13,3 @@ https://sapui5.hana.ondemand.com/#docs/guide/a460a7348a6c431a8bd967ab9fb8d918.ht
 
  #### Happy Development! ####
  
- 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
