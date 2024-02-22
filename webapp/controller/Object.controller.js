@@ -3,12 +3,14 @@ sap.ui.define([
 		"assertcode/CommesseApplication/controller/BaseController",
 		"sap/ui/model/json/JSONModel",
 		"sap/ui/core/routing/History",
-		"assertcode/CommesseApplication/model/formatter"
+		"assertcode/CommesseApplication/model/formatter",
+		'sap/m/MessageToast'
 	], function (
 		BaseController,
 		JSONModel,
 		History,
-		formatter
+		formatter,
+		MessageToast
 	) {
 		"use strict";
 
@@ -139,7 +141,31 @@ sap.ui.define([
 				oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
 				oViewModel.setProperty("/shareSendEmailMessage",
 				oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
-			}
+			},
+			
+		/*	onDeleteObject: function(oEvent){
+				
+				var sObjectId =  oEvent.getParameter("arguments").objectId;
+				
+				this.getOwnerComponent().getModel().setUseBatch(false);
+				
+				this.getOwnerComponent().getModel().remove("/COMMESSESet('" + sObjectId + "')", {
+				method: "DELETE",
+				success: function(data) {
+					MessageToast.show('Operazione effettuata correttamente');
+					this.onSearch();
+					this.onNavBack();
+					
+				}.bind(this),
+				error: function(error) {}.bind(this)
+				});
+				
+				
+					
+					
+					
+				}*/
+			/*}*/
 
 		});
 

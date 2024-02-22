@@ -1,26 +1,103 @@
 <mvc:View
+	height="100%"
 	controllerName="assertcode.CommesseApplication.controller.Object"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns:semantic="sap.f.semantic">
-
-	<Page
+	
+	<ObjectHeader
+		icon="sap-icon://nav-back"
+		iconActive="true"
+		iconPress="onNavBack"
+		id="oh1"
+		responsive="true"
+		fullScreenOptimized="false"
+		title="{i18n>Codcomm}: {Codcomm} - {Descr} "
+		titleActive="true"
+		titlePress="handleTitlePress"
+		numberState="Success"
+		backgroundDesign="Translucent"
+		class="sapUiResponsivePadding--header">
+		<headerContainer>
+			<IconTabBar
+				id="itb1"
+				selectedKey="key3"
+				upperCase="true"
+				class="sapUiResponsiveContentPadding">
+				<items>
+					<IconTabFilter
+						key="info"
+						icon="sap-icon://form">
+					<Table
+						mode="SingleSelectMaster"
+						width="auto"
+						
+						growing="true"
+						growingScrollToLoad="True"
+					>
+						<columns>
+							<Column>
+								<Text text="{i18n>Tpcomm}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Dinizio}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Dfine}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Importotot}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Ratevend}" />
+							</Column>
+							<Column>
+								<Text text="{i18n>Cliente}" />
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem>
+								<cells>
+									<Input value="{Tpcomm}" editable="false" />
+									<DatePicker editable="false" dateValue="{Dinizio}" />
+									<DatePicker editable="false" dateValue="{Dfine}" />
+									<Input editable="false"
+									value="{Importotot}"/>
+									<Input value="{Ratevend}" editable="false" />
+									
+									<Input value="{Cliente}" editable="false"/>
+								
+								</cells>
+							</ColumnListItem>
+						</items>
+						</Table>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</headerContainer>
+	</ObjectHeader>
+	<Toolbar>
+		<ToolbarSpacer/>
+		<Button text="Update" type="Attention">
+		</Button>
+		<Button text="Delete" press="onDeleteObject" type="Reject">
+		</Button>
+	</Toolbar>
+	
+<!--	<Page
 		id="page"
 		busy="{objectView>/busy}"
 		busyIndicatorDelay="{objectView>/delay}">
 
-		<titleHeading>
+ 		<HBox></HBox>
 			<Title text="{Codcomm}" />
 		</titleHeading>
 
-		<headerContent>
+ 		<headerContent>
 			<ObjectNumber
 			/>
 		</headerContent>
-
-
-
-
-	</Page>
+	</Page>-->
+	
 
 </mvc:View>
